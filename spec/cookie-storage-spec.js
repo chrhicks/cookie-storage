@@ -28,7 +28,7 @@ describe('cookie-storage', function() {
     it('should get what was just set', function() {
       var varName = 'shouldEquals',
         varValue = 'a test string ? ; = ,';
-      cm.set(varName, varValue);
+      cm.set(varName, cm.encode(varValue));
 
       expect(cm.get(varName)).toEqual(varValue);
     });
@@ -67,7 +67,7 @@ describe('cookie-storage', function() {
     var name = "cookieName",
       value = "value";
 
-    cs.put(name, value);
+    cs.put(name, cm.encode(value));
     expect(cs.get(name)).toEqual(value);
   });
 
