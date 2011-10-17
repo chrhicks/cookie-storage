@@ -1,6 +1,8 @@
 #CookieStorage
 
-A cookie backed JavaScipt kvstore.
+Often when you save data into cookies it uses up a small amount of data. Since a cookie can use up to 4096 bytes, the majority of the space is wasted! Also, as a general rule of thumb, a domain can have a maximum of 20 cookies. But what if that isn't enough?
+
+CookieStorage solves these problems by maximizing the space made available by a single cookie by packing data into a single cookie until the full 4096 bytes are consumed. Read on to learn more...
 
 ##Usage
 
@@ -50,8 +52,13 @@ When CookieStorage is initialized, it loads all of the cskv_* cookies into its i
 
 ###CookieManager
 
-CookieStorage comes with a primitive api to read and write cookies. If it does not meet your needs, feel free to extend of override `CookieStorage.CookieManager`.
+CookieStorage comes with a primitive api to read and write cookies. If it does not meet your needs, feel free to extend or override `CookieStorage.CookieManager`.
 
 The only safety feature of CookieManager is to ensure that the cskv_* cookies don't exceed the 4096B limit.
 
-When using `document.cookie`, `,`, `;`, and `space` are illegal characters and must be encoded. In addition to this, CookieStorage uses `|` to separate the key/value pairs in the cookies. Other than that, use `CookieStorage.put` as you would `document.cookie`
+When using `document.cookie`, `,`, `;`, and `space` are illegal characters and must be encoded. In addition to this, CookieStorage uses `|` to separate the key/value pairs in the cookies. Other than that, use `CookieStorage.put` as you would `document.cookie`.
+
+##TODO
+* Add `CookieStorage.remove` function to erase a k/v pair.
+* Make it possible for a k/v pair to span multiple cookies.
+* Create libraries for other languages such as PHP, Java, Ruby, etc.
