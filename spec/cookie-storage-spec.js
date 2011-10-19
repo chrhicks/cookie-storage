@@ -1,6 +1,6 @@
 describe('cookie-storage', function() {
-  var cs = window.CookieStorage,
-    cm = cs.CookieManager,
+  var cs = new CookieStore('cskv_'),
+    cm = CookieStorage.CookieManager,
     clearCookies,
     getRandomArbitary,
     randomWords;
@@ -92,7 +92,7 @@ describe('cookie-storage', function() {
     var name = "cookieName",
       value = "value";
 
-    cs.put(name, cm.encode(value));
+    cs.put(name, value);
     expect(cs.get(name)).toEqual(value);
   });
 
@@ -105,23 +105,23 @@ describe('cookie-storage', function() {
 
   it('should have a no cookie stores', function () {
     cs.clearStores();
-    cs.init();
+    cs.loadStores();
     expect(cs.listStores().length).toEqual(0);
   });
 
   it('should have a single cookie store', function () {
     var name = "cookieName",
       value = "value";
-    cs.init();
+    cs.loadStores();
     expect(cs.listStores().length).toEqual(0);
     cs.put(name, value);
     expect(cs.listStores().length).toEqual(1);
   });
 
   it('should span multiple cookie stores', function () {
-    var numEntries = 60;
+    var numEntries = 80;
 
-    cs.init();
+    cs.loadStores();
 
     _(numEntries).times(function () {
       cs.put(randomWords(1), randomWords(getRandomArbitary(1, 11)));
